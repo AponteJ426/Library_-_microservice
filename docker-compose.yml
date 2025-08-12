@@ -4,7 +4,7 @@ services:
   frontend:
     build:
       context: ./client
-      dockerfile: dockerfile
+      dockerfile: Dockerfile
       args:
         - VITE_API_URL=http://localhost:4000/api
         - CLIENT_URL=http://localhost:3000
@@ -18,7 +18,7 @@ services:
   backend:
     build:
       context: ./backend
-      dockerfile: dockerfile
+      dockerfile: Dockerfile
     ports:
       - "4000:3000"
     environment:
@@ -35,7 +35,7 @@ services:
   microservice:
     build:
       context: ./microservice
-      dockerfile: dockerfile
+      dockerfile: Dockerfile
     ports:
       - "5001:5000"
 
