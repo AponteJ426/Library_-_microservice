@@ -1,0 +1,8 @@
+fastapi
+pydantic>=1.10.13
+uvicorn
+joblib
+pandas
+numpy
+requests
+scikit-learn

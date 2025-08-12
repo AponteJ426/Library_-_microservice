@@ -1,0 +1,17 @@
+node_modules
+npm-debug.log
+npm-debug.log.*
+.DS_Store
+.env
+dist
+coverage
+.vscode
+build
+.git
+__pycache__
+*.pyc
+*.pyo
+*.pyd
+*.db
+
+

@@ -1,0 +1,62 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id            Int        @id @default(autoincrement())
+  email         String     @unique
+  nombre        String
+  password      String
+  librosInteres String[]   @default([])
+  createdAt     DateTime   @default(now())
+  role          Role       @default(USER)
+  updatedAt     DateTime   @updatedAt
+  favoritos     Favorito[]
+  librosLeidos  Libro[]    @relation("LibrosLeidos")
+}
+
+model Editorial {
+  id     Int     @id @default(autoincrement())
+  nombre String
+  libros Libro[]
+}
+
+model Libro {
+  id          Int       @id @default(autoincrement())
+  titulo      String
+  autor       String
+  editorialId Int
+  editorial   Editorial @relation(fields: [editorialId], references: [id])
+  lectores    User[]    @relation("LibrosLeidos")
+}
+
+model Favorito {
+  id      Int    @id @default(autoincrement())
+  titulo  String
+  autor   String
+  imagen  String
+  description String?
+  userId  Int
+  libroId String @db.VarChar(191)
+  user    User   @relation(fields: [userId], references: [id])
+
+  @@unique([libroId, userId])
+}
+
+model Support {
+  id        Int      @id @default(autoincrement())
+  nombre    String
+  correo    String
+  mensaje   String
+  createdAt DateTime @default(now())
+}
+
+enum Role {
+  ADMIN @map("admin")
+  USER  @map("user")
+}
